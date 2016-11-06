@@ -6,6 +6,21 @@
     </head>
     <body>
         <div class="wrapper">
+            <!--FORM-->
+            <form action="" method="post">
+                <b>Max Age:</b> <input type="text" name="numOfRows" value="" size="5" />
+                <br />
+                <b>Max Adoption Fee:</b> <select name="max">
+                    <option value='unlimited'>No Limit</option>
+                    <option value='100'>100</option>
+                    <option value='75'>75</option>
+                    <option value='50'>50</option>
+					<option value='25'>25</option>
+                </select>
+                <br />
+                <input type="submit" value="Filter" name="submit" />
+            </form>
+            
             <?php
                 //CONNECT TO DB
                 $host = 'localhost';

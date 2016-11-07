@@ -18,7 +18,7 @@
         <div class="wrapper">
             <!--FORM-->
             <form action="" method="post">
-                <b>Max Age:</b> <input type="text" name="numOfRows" value="" size="5" />
+                <b>Max Age:</b> <input type="text" name="maxAge" value="" size="5" />
                 <br />
                 <b>Max Adoption Fee:</b> <select name="max">
                     <option value='unlimited'>No Limit</option>
@@ -39,19 +39,28 @@
                 $database = 'project2_is_coo';
                 $dbConn = new PDO('mysql:host='.$host.';dbname='.$database, $user, $password);
     			
-                //QUERY
-                $table1 = 'general_info';
-                $sqlquery = 'SELECT * FROM '.$table1.' ORDER BY animal_ID ASC;';
+                //QUERY WITH MAX AGE
+                if (isset($_POST['maxAge'])) {
+                    $maxAge = " WHERE age <= ".$_POST['maxAge'];
+                }
+                else{
+                    $maxAge = " ";
+                }
+                var_dump($maxAge);
+                
+                $table1 = 'detailed_info';
+                $sqlquery = 'SELECT * FROM '.$table1.$maxAge.' ORDER BY animal_ID ASC;';
                 $statement = $dbConn -> prepare($sqlquery);
                 $statement -> execute();
                 
                 //SET UP HTML TABLE, FETCH AND DISPLAY DATA
-                echo '<h1>Table: detailed_info</h1>'.$sqlquery.'<table>';
-                echo '<tr><td style="font-weight: bold">ID</td><td style="font-weight: bold">Name</td><td style="font-weight: bold">Description</td></tr>';
+                echo '<h1>Table: query implementing form data</h1>'.$sqlquery.'<table>';
+                echo '<tr><td style="font-weight: bold">ID</td><td style="font-weight: bold">Gender</td><td style="font-weight: bold">Color</td><td style="font-weight: bold">Size</td><td style="font-weight: bold">Age</td></tr>';
                 while($row = $statement -> fetch()){
-                    echo '<tr><td>'.$row["animal_ID"].'</td><td>'.$row["name"].'</td><td>'.$row["description"].'</td></tr>';
+                    echo '<tr><td>'.$row["animal_ID"].'</td><td>'.$row["gender"].'</td><td>'.$row["color"].'</td><td>'.$row["size"].'</td><td>'.$row["age"].'</td></tr>';
                 }
                 echo '</table>';
+    			
                     
                 //QUERY
                 $table1 = 'detailed_info';

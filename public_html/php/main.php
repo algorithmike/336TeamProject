@@ -47,7 +47,7 @@
             <div id="description" style="float: right;">TEST</div>
             <?php
                 //CONNECT TO DB
-                $host = 'localhost';
+                $host = '127.0.0.1';
                 $user = 'project2_is_coo';
                 $password = 'a1b2xyZ123';
                 $database = 'project2_is_coo';

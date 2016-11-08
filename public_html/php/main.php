@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <!--1) Database has at least 3 tables with 40 records (10 points) ***********DONE*********** -->
-<!--2) Users can filter data using at least three fields (15 points) ***********MIKE IS WORKING ON THIS*********** -->
+<!--2) Users can filter data using at least three fields (15 points) ***********DONE*********** -->
 <!--3) Users can sort results (asc,desc) using at least one field (10 points) ***********MIKE IS WORKING ON THIS***********-->
 <!--4) Users can click on an item to get further info (10 points) ***********MIKE IS WORKING ON THIS***********-->
 <!--5) Users can add items to shopping cart using a Session (10 points)-->
@@ -20,13 +20,14 @@
             <form action="" method="post">
                 <b>Max Age:</b> <input type="text" name="maxAge" value="" size="5" />
                 <br />
-                <b>Max Adoption Fee:</b> <select name="max">
+                <b>Max Adoption Fee:</b> <select name="maxFee">
                     <option value='unlimited'>No Limit</option>
                     <option value='100'>100</option>
                     <option value='75'>75</option>
                     <option value='50'>50</option>
 					<option value='25'>25</option>
-                </select>
+                </select><br />
+                <input type="radio" name="gender" value="either" checked>Either gender <input type="radio" name="gender" value="female">Female <input type="radio" name="gender" value="male">Male
                 <br />
                 <input type="submit" value="Filter" name="submit" />
             </form>
@@ -39,25 +40,51 @@
                 $database = 'project2_is_coo';
                 $dbConn = new PDO('mysql:host='.$host.';dbname='.$database, $user, $password);
     			
-                //QUERY WITH MAX AGE
-                if (isset($_POST['maxAge'])) {
-                    $maxAge = " WHERE age <= ".$_POST['maxAge'];
+    			$displayWHERE = false;
+    			
+                //QUERY
+                //GENDER
+                if($_POST['gender'] == "male"){
+                    $gender = " WHERE gender = 'M'";
+                } elseif($_POST['gender'] == "femalse"){
+                    $gender = " WHERE gender = 'F'";
+                } else{
+                    $gender = " WHERE gender = 'F' OR gender = 'M'";
+                }
+                
+                //MAX AGE
+                if (!empty($_POST['maxAge'])) {
+                    $maxAge = " AND age <= ".$_POST['maxAge'];
+                    $displayWHERE = true;
                 }
                 else{
-                    $maxAge = " ";
+                    $maxAge = "";
                 }
-                var_dump($maxAge);
+                
+                //MAX FEE
+                if(empty($_POST['maxFee'])){
+                    $maxFee = "";
+                }
+                else if ($_POST['maxFee'] == "unlimited") {
+                    $maxFee = "";
+                }
+                else{
+                    $maxFee = " AND adoption_fee <= ".$_POST['maxFee'];
+                    $displayWHERE = true;
+                }
+                
                 
                 $table1 = 'detailed_info';
-                $sqlquery = 'SELECT * FROM '.$table1.$maxAge.' ORDER BY animal_ID ASC;';
+                $table2 = 'animal_cost';
+                $sqlquery = 'SELECT * FROM '.$table1.' x LEFT JOIN '.$table2.' y ON x.animal_ID = y.animal_ID'.$gender.$maxAge.$maxFee;
                 $statement = $dbConn -> prepare($sqlquery);
                 $statement -> execute();
                 
                 //SET UP HTML TABLE, FETCH AND DISPLAY DATA
                 echo '<h1>Table: query implementing form data</h1>'.$sqlquery.'<table>';
-                echo '<tr><td style="font-weight: bold">ID</td><td style="font-weight: bold">Gender</td><td style="font-weight: bold">Color</td><td style="font-weight: bold">Size</td><td style="font-weight: bold">Age</td></tr>';
+                echo '<tr><td style="font-weight: bold">ID</td><td style="font-weight: bold">Gender</td><td style="font-weight: bold">Color</td><td style="font-weight: bold">Size</td><td style="font-weight: bold">Age</td><td style="font-weight: bold">Adoption Fee</td></tr>';
                 while($row = $statement -> fetch()){
-                    echo '<tr><td>'.$row["animal_ID"].'</td><td>'.$row["gender"].'</td><td>'.$row["color"].'</td><td>'.$row["size"].'</td><td>'.$row["age"].'</td></tr>';
+                    echo '<tr><td>'.$row["animal_ID"].'</td><td>'.$row["gender"].'</td><td>'.$row["color"].'</td><td>'.$row["size"].'</td><td>'.$row["age"].'</td><td>$'.$row["adoption_fee"].'</td></tr>';
                 }
                 echo '</table>';
     			

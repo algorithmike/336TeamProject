@@ -13,6 +13,11 @@
     <head>
         <title>Project 2</title>
         <link rel="stylesheet" type="text/css" href="../css/styles.css/">
+        <script>
+            function showDescription() {
+                document.getElementById("description").innerHTML = "<b>TEST</b>";
+            }
+        </script>
     </head>
     <body>
         <div class="wrapper">
@@ -37,7 +42,7 @@
                 <br />
                 <input type="submit" value="Filter" name="submit" />
             </form>
-            
+            <div id="description" style="float: right;">TEST</div>
             <?php
                 //CONNECT TO DB
                 $host = 'localhost';
@@ -90,7 +95,7 @@
                     $maxFee = " AND adoption_fee <= ".$_POST['maxFee'];
                 }
                 
-                
+                //QUERY
                 $table1 = 'detailed_info';
                 $table2 = 'animal_cost';
                 $table3 = 'general_info';
@@ -102,11 +107,11 @@
                 echo '<h1>Table: query implementing form data</h1>'.$sqlquery.'<table>';
                 echo '<tr><td style="font-weight: bold">ID</td><td style="font-weight: bold">Animal Name</td><td style="font-weight: bold">Gender</td><td style="font-weight: bold">Color</td><td style="font-weight: bold">Size</td><td style="font-weight: bold">Age</td><td style="font-weight: bold">Adoption Fee</td></tr>';
                 while($row = $statement -> fetch()){
-                    echo '<tr><td>'.$row["animal_ID"].'</td><td>'.$row["name"].'</td><td>'.$row["gender"].'</td><td>'.$row["color"].'</td><td>'.$row["size"].'</td><td>'.$row["age"].'</td><td>$'.$row["adoption_fee"].'</td></tr>';
+                    echo '<tr onclick="showDescription()"><td>'.$row["animal_ID"].'</td><td>'.$row["name"].'</td><td>'.$row["gender"].'</td><td>'.$row["color"].'</td><td>'.$row["size"].'</td><td>'.$row["age"].'</td><td>$'.$row["adoption_fee"].'</td></tr>';
                 }
                 echo '</table>';
-    		
             ?>
+            
         </div>
     </body>
 </html>

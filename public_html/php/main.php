@@ -13,11 +13,13 @@
     <head>
         <title>Project 2</title>
         <link rel="stylesheet" type="text/css" href="../css/styles.css/">
+        
         <script>
             function showDescription() {
-                document.getElementById("description").innerHTML = "<b>TEST</b>";
+                document.getElementById("description").innerHTML = "<b>Description: GOTTA FIGURE THIS OUT</b>";
             }
         </script>
+        
     </head>
     <body>
         <div class="wrapper">

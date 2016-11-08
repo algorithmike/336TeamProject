@@ -2,7 +2,7 @@
 <html>
 <!--1) Database has at least 3 tables with 40 records (10 points) ***********DONE*********** -->
 <!--2) Users can filter data using at least three fields (15 points) ***********DONE*********** -->
-<!--3) Users can sort results (asc,desc) using at least one field (10 points) ***********MIKE IS WORKING ON THIS***********-->
+<!--3) Users can sort results (asc,desc) using at least one field (10 points) ***********DONE***********-->
 <!--4) Users can click on an item to get further info (10 points) ***********MIKE IS WORKING ON THIS***********-->
 <!--5) Users can add items to shopping cart using a Session (10 points)-->
 <!--6) Users can see the content of the shopping cart (10 points)-->
@@ -18,6 +18,12 @@
         <div class="wrapper">
             <!--FORM-->
             <form action="" method="post">
+                <b>Sort by:</b> <select name="sorting">
+                    <option value='byIDasc'>Ascending ID</option>
+                    <option value='byIDDesc'>Descending ID</option>
+                    <option value='byAgeAsc'>Ascending Age</option>
+                    <option value='byAgeDesc'>Descending Age</option>
+                </select><br />
                 <b>Max Age:</b> <input type="text" name="maxAge" value="" size="5" />
                 <br />
                 <b>Max Adoption Fee:</b> <select name="maxFee">
@@ -27,7 +33,7 @@
                     <option value='50'>50</option>
 					<option value='25'>25</option>
                 </select><br />
-                <input type="radio" name="gender" value="either" checked>Either gender <input type="radio" name="gender" value="female">Female <input type="radio" name="gender" value="male">Male
+                <b>Gender: </b><input type="radio" name="gender" value="either" checked>Either <input type="radio" name="gender" value="female">Female <input type="radio" name="gender" value="male">Male
                 <br />
                 <input type="submit" value="Filter" name="submit" />
             </form>
@@ -46,16 +52,28 @@
                 //GENDER
                 if($_POST['gender'] == "male"){
                     $gender = " WHERE gender = 'M'";
-                } elseif($_POST['gender'] == "femalse"){
+                } elseif($_POST['gender'] == "female"){
                     $gender = " WHERE gender = 'F'";
                 } else{
                     $gender = " WHERE gender = 'F' OR gender = 'M'";
                 }
                 
+                
+
+                if($_POST['sorting'] == "byAgeDesc"){
+                    $orderBy = " ORDER BY x.age DESC";
+                } elseif($_POST['sorting'] == "byIDDesc"){
+                    $orderBy = " ORDER BY x.animal_ID DESC";
+                }
+                elseif($_POST['sorting'] == "byAgeAsc"){
+                    $orderBy = " ORDER BY x.age ASC";
+                }else{
+                    $orderBy = " ORDER BY x.animal_ID ASC";
+                }
+                
                 //MAX AGE
                 if (!empty($_POST['maxAge'])) {
                     $maxAge = " AND age <= ".$_POST['maxAge'];
-                    $displayWHERE = true;
                 }
                 else{
                     $maxAge = "";
@@ -70,52 +88,24 @@
                 }
                 else{
                     $maxFee = " AND adoption_fee <= ".$_POST['maxFee'];
-                    $displayWHERE = true;
                 }
                 
                 
                 $table1 = 'detailed_info';
                 $table2 = 'animal_cost';
-                $sqlquery = 'SELECT * FROM '.$table1.' x LEFT JOIN '.$table2.' y ON x.animal_ID = y.animal_ID'.$gender.$maxAge.$maxFee;
+                $table3 = 'general_info';
+                $sqlquery = 'SELECT * FROM '.$table1.' x LEFT JOIN '.$table2.' y ON x.animal_ID = y.animal_ID LEFT JOIN '.$table3.' z ON z.animal_ID = x.animal_ID'.$gender.$maxAge.$maxFee.$orderBy;
                 $statement = $dbConn -> prepare($sqlquery);
                 $statement -> execute();
                 
                 //SET UP HTML TABLE, FETCH AND DISPLAY DATA
                 echo '<h1>Table: query implementing form data</h1>'.$sqlquery.'<table>';
-                echo '<tr><td style="font-weight: bold">ID</td><td style="font-weight: bold">Gender</td><td style="font-weight: bold">Color</td><td style="font-weight: bold">Size</td><td style="font-weight: bold">Age</td><td style="font-weight: bold">Adoption Fee</td></tr>';
+                echo '<tr><td style="font-weight: bold">ID</td><td style="font-weight: bold">Animal Name</td><td style="font-weight: bold">Gender</td><td style="font-weight: bold">Color</td><td style="font-weight: bold">Size</td><td style="font-weight: bold">Age</td><td style="font-weight: bold">Adoption Fee</td></tr>';
                 while($row = $statement -> fetch()){
-                    echo '<tr><td>'.$row["animal_ID"].'</td><td>'.$row["gender"].'</td><td>'.$row["color"].'</td><td>'.$row["size"].'</td><td>'.$row["age"].'</td><td>$'.$row["adoption_fee"].'</td></tr>';
+                    echo '<tr><td>'.$row["animal_ID"].'</td><td>'.$row["name"].'</td><td>'.$row["gender"].'</td><td>'.$row["color"].'</td><td>'.$row["size"].'</td><td>'.$row["age"].'</td><td>$'.$row["adoption_fee"].'</td></tr>';
                 }
                 echo '</table>';
-    			
-                    
-                //QUERY
-                $table1 = 'detailed_info';
-                $sqlquery = 'SELECT * FROM '.$table1.' ORDER BY animal_ID ASC;';
-                $statement = $dbConn -> prepare($sqlquery);
-                $statement -> execute();
-                
-                //SET UP HTML TABLE, FETCH AND DISPLAY DATA
-                echo '<h1>Table: general_info</h1>'.$sqlquery.'<table>';
-                echo '<tr><td style="font-weight: bold">ID</td><td style="font-weight: bold">Gender</td><td style="font-weight: bold">Color</td><td style="font-weight: bold">Size</td><td style="font-weight: bold">Age</td></tr>';
-                while($row = $statement -> fetch()){
-                    echo '<tr><td>'.$row["animal_ID"].'</td><td>'.$row["gender"].'</td><td>'.$row["color"].'</td><td>'.$row["size"].'</td><td>'.$row["age"].'</td></tr>';
-                }
-                echo '</table>';
-                
-                //QUERY
-                $table1 = 'animal_cost';
-                $sqlquery = 'SELECT * FROM '.$table1.' ORDER BY animal_ID ASC;';
-                $statement = $dbConn -> prepare($sqlquery);
-                $statement -> execute();
-                
-                //SET UP HTML TABLE, FETCH AND DISPLAY DATA
-                echo '<h1>Table: animal_cost</h1>'.$sqlquery.'<table>';
-                echo '<tr><td style="font-weight: bold">ID</td><td style="font-weight: bold">Adoption Fee</td></tr>';
-                while($row = $statement -> fetch()){
-                    echo '<tr><td>'.$row["animal_ID"].'</td><td>$'.$row["adoption_fee"].'</td></tr>';
-                }
-                echo '</table>';
+    		
             ?>
         </div>
     </body>

@@ -3,7 +3,7 @@
 <!--***********DONE***********1) Database has at least 3 tables with 40 records (10 points) -->
 <!--***********DONE***********2) Users can filter data using at least three fields (15 points) ***********DONE*********** -->
 <!--***********DONE***********3) Users can sort results (asc,desc) using at least one field (10 points) ***********DONE***********-->
-<!--4) Users can click on an item to get further info (10 points) ***********CHECK OUT THE JAVASCRIPT FUNCTION showDescription()***********-->
+<!--***********DONE***********4) Users can click on an item to get further info (10 points) ***********CHECK OUT THE JAVASCRIPT FUNCTION showDescription()***********-->
 <!--5) Users can add items to shopping cart using a Session (10 points)-->
 <!--6) Users can see the content of the shopping cart (10 points)-->
 <!--7) The web pages have a nice and consistent look and feel (10 points)-->
@@ -24,6 +24,9 @@
                 document.getElementById("description").style.backgroundColor = "grey";
                 document.getElementById("description").style.color = "white";
                 document.getElementById("description").innerHTML = text;
+                
+                var button = document.createElement("button");
+                button.
             }
         </script>
         
@@ -109,10 +112,10 @@
                 }
                 
                 //QUERY
-                $table1 = 'detailed_info';
-                $table2 = 'animal_cost';
-                $table3 = 'general_info';
-                $sqlquery = 'SELECT * FROM '.$table1.' x LEFT JOIN '.$table2.' y ON x.animal_ID = y.animal_ID LEFT JOIN '.$table3.' z ON z.animal_ID = x.animal_ID'.$gender.$maxAge.$maxFee.$orderBy;
+                $table1 = "detailed_info";
+                $table2 = "animal_cost";
+                $table3 = "general_info";
+                $sqlquery = "SELECT * FROM ".$table1." x LEFT JOIN ".$table2." y ON x.animal_ID = y.animal_ID LEFT JOIN ".$table3." z ON z.animal_ID = x.animal_ID".$gender.$maxAge.$maxFee.$orderBy;
                 $statement = $dbConn -> prepare($sqlquery);
                 $statement -> execute();
                 
@@ -120,7 +123,7 @@
                 echo "<h1>Table: query implementing form data</h1>".$sqlquery."<table>";
                 echo "<tr><td style=\"font-weight: bold\">ID</td><td style=\"font-weight: bold\">Animal Name</td><td style=\"font-weight: bold\">Gender</td><td style=\"font-weight: bold\">Color</td><td style=\"font-weight: bold\">Size</td><td style=\"font-weight: bold\">Age</td><td style=\"font-weight: bold\">Adoption Fee</td></tr>";
                 while($row = $statement->fetch()){
-                    echo "<tr onclick=\"showDescription(\"".$row['description'] . "\")\"><td>".$row["animal_ID"]."</td><td>".$row["name"]."</td><td>".$row["gender"]."</td><td>".$row["color"]."</td><td>".$row["size"]."</td><td>".$row["age"]."</td><td>$".$row["adoption_fee"]."</td></tr>";
+                    echo "<tr onclick=\"showDescription('".$row['description'] . "')\"><td>".$row["animal_ID"]."</td><td>".$row["name"]."</td><td>".$row["gender"]."</td><td>".$row["color"]."</td><td>".$row["size"]."</td><td>".$row["age"]."</td><td>$".$row["adoption_fee"]."</td></tr>";
                 }
                 echo "</table>";
             ?>

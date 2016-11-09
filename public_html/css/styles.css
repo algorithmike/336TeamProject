@@ -16,6 +16,7 @@
     color: white;
 }
 
+<<<<<<< HEAD
 table{
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -36,4 +37,19 @@ tr:nth-child(even){
 }
 .wrapper{
     font-family: arial, sans-serif;
+=======
+tr {
+    border: 1px solid black;
+}
+
+#shoppingCart {
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    width: 200px;
+
+    background-color: grey;
+    color: white;
+>>>>>>> d2988ee7f47ab635a53b446e8cb2d660c8727cfb
 }

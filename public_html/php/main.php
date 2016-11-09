@@ -1,4 +1,7 @@
 <!DOCTYPE HTML>
+<?php
+session_start();
+?>
 <html>
 <!--***********DONE***********1) Database has at least 3 tables with 40 records (10 points) -->
 <!--***********DONE***********2) Users can filter data using at least three fields (15 points) ***********DONE*********** -->
@@ -24,9 +27,16 @@
                 document.getElementById("description").style.backgroundColor = "grey";
                 document.getElementById("description").style.color = "white";
                 document.getElementById("description").innerHTML = text;
-                
-                
-                
+            }
+            function showShoppingCart(){
+                document.getElementById("shoppingCart").style.position = "fixed";
+                document.getElementById("shoppingCart").style.right = 0;
+                document.getElementById("shoppingCart").style.top = 0;
+                document.getElementById("shoppingCart").style.width = "200px";
+                document.getElementById("shoppingCart").style.height = "100px";
+                document.getElementById("shoppingCart").style.backgroundColor = "grey";
+                document.getElementById("shoppingCart").style.color = "white";
+                document.getElementById("shoppingCart").innerHTML = "";
             }
         </script>
         
@@ -55,6 +65,7 @@
                 <input type="submit" value="Filter" name="submit" />
             </form>
             <div id="description"></div>
+            <div id="shoppingCart"></div>
             <?php
                 //CONNECT TO DB
                 $host = '127.0.0.1';
@@ -123,12 +134,28 @@
                // echo "<h1>Table: query implementing form data</h1>".$sqlquery."; 
                 echo"<table>";
                 echo "<tr><td style=\"font-weight: bold\">ID</td><td style=\"font-weight: bold\">Animal Name</td><td style=\"font-weight: bold\">Gender</td><td style=\"font-weight: bold\">Color</td><td style=\"font-weight: bold\">Size</td><td style=\"font-weight: bold\">Age</td><td style=\"font-weight: bold\">Adoption Fee</td></tr>";
+                ?>
+                <form>
+                    
+                <?php
+                $i = 0;
                 while($row = $statement->fetch()){
-                    echo "<tr onclick=\"showDescription('".$row['description'] . "')\"><td>".$row["animal_ID"]."</td><td>".$row["name"]."</td><td>".$row["gender"]."</td><td>".$row["color"]."</td><td>".$row["size"]."</td><td>".$row["age"]."</td><td>$".$row["adoption_fee"]."</td></tr>";
+                    echo "<tr onclick=\"showDescription('".$row['description'] . "')\"><td><div onclick=\"addToCart(<?php $row ?>)\"><input type=\"checkbox\" name=\"animal_names\" value=\"" . $row['name'] ."\"></div></td><td>".$row["animal_ID"]."</td><td>".$row["name"]."</td><td>".$row["gender"]."</td><td>".$row["color"]."</td><td>".$row["size"]."</td><td>".$row["age"]."</td><td>$".$row["adoption_fee"]."</td></tr>";
                 }
                 echo "</table>
                 </div>";
+
+                ?>
+                </form>
+                <?php
+                //$_SESSION['values'] = $arr;
+                
+                function sessionn(){
+                    echo "<input type=\"submit\">";
+                }
             ?>
+            
+            <a href="displayShoppingCart.php">Shopping Cart</a>
             
         </div>
     </body>

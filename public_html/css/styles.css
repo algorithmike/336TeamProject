@@ -1,5 +1,7 @@
 .body {
     background-color: grey;
+    width: 100%;
+    height: 100%;
 }
 
 #description {
@@ -10,10 +12,28 @@
     width: 200px;
     height: 100px;
 
-    background-color: grey;
+    background-color: orange;
     color: white;
 }
 
-tr {
-    border: 1px solid black;
+table{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+} 
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even){
+    background-color: #9DC5DB;
+}
+
+.results{
+    width: 50%;
+    margin:auto;
+}
+.wrapper{
+    font-family: arial, sans-serif;
 }

@@ -25,8 +25,8 @@
                 document.getElementById("description").style.color = "white";
                 document.getElementById("description").innerHTML = text;
                 
-                var button = document.createElement("button");
-                button.
+                
+                
             }
         </script>
         
@@ -118,14 +118,16 @@
                 $sqlquery = "SELECT * FROM ".$table1." x LEFT JOIN ".$table2." y ON x.animal_ID = y.animal_ID LEFT JOIN ".$table3." z ON z.animal_ID = x.animal_ID".$gender.$maxAge.$maxFee.$orderBy;
                 $statement = $dbConn -> prepare($sqlquery);
                 $statement -> execute();
-                
+                echo "<div class=\"results\">";
                 //SET UP HTML TABLE, FETCH AND DISPLAY DATA
-                echo "<h1>Table: query implementing form data</h1>".$sqlquery."<table>";
+               // echo "<h1>Table: query implementing form data</h1>".$sqlquery."; 
+                echo"<table>";
                 echo "<tr><td style=\"font-weight: bold\">ID</td><td style=\"font-weight: bold\">Animal Name</td><td style=\"font-weight: bold\">Gender</td><td style=\"font-weight: bold\">Color</td><td style=\"font-weight: bold\">Size</td><td style=\"font-weight: bold\">Age</td><td style=\"font-weight: bold\">Adoption Fee</td></tr>";
                 while($row = $statement->fetch()){
                     echo "<tr onclick=\"showDescription('".$row['description'] . "')\"><td>".$row["animal_ID"]."</td><td>".$row["name"]."</td><td>".$row["gender"]."</td><td>".$row["color"]."</td><td>".$row["size"]."</td><td>".$row["age"]."</td><td>$".$row["adoption_fee"]."</td></tr>";
                 }
-                echo "</table>";
+                echo "</table>
+                </div>";
             ?>
             
         </div>

@@ -133,7 +133,7 @@ session_start();
                 //SET UP HTML TABLE, FETCH AND DISPLAY DATA
                // echo "<h1>Table: query implementing form data</h1>".$sqlquery."; 
                 echo"<table>";
-                echo "<tr><td style=\"font-weight: bold\">ID</td><td style=\"font-weight: bold\">Animal Name</td><td style=\"font-weight: bold\">Gender</td><td style=\"font-weight: bold\">Color</td><td style=\"font-weight: bold\">Size</td><td style=\"font-weight: bold\">Age</td><td style=\"font-weight: bold\">Adoption Fee</td></tr>";
+                echo "<tr><td style=\"font-weight: bold\"> </td><td style=\"font-weight: bold\">ID</td><td style=\"font-weight: bold\">Animal Name</td><td style=\"font-weight: bold\">Gender</td><td style=\"font-weight: bold\">Color</td><td style=\"font-weight: bold\">Size</td><td style=\"font-weight: bold\">Age</td><td style=\"font-weight: bold\">Adoption Fee</td></tr>";
                 ?>
                 <form>
                     

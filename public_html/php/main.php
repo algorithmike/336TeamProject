@@ -1,22 +1,29 @@
 <!DOCTYPE HTML>
 <html>
-<!--1) Database has at least 3 tables with 40 records (10 points) ***********DONE*********** -->
-<!--2) Users can filter data using at least three fields (15 points) ***********DONE*********** -->
-<!--3) Users can sort results (asc,desc) using at least one field (10 points) ***********DONE***********-->
+<!--***********DONE***********1) Database has at least 3 tables with 40 records (10 points) -->
+<!--***********DONE***********2) Users can filter data using at least three fields (15 points) ***********DONE*********** -->
+<!--***********DONE***********3) Users can sort results (asc,desc) using at least one field (10 points) ***********DONE***********-->
 <!--4) Users can click on an item to get further info (10 points) ***********CHECK OUT THE JAVASCRIPT FUNCTION showDescription()***********-->
 <!--5) Users can add items to shopping cart using a Session (10 points)-->
 <!--6) Users can see the content of the shopping cart (10 points)-->
 <!--7) The web pages have a nice and consistent look and feel (10 points)-->
-<!--8) The team used Github for collaboration (10 points) ***********DONE***********-->
-<!--9) The team used Trello or a similar tool for project management (10 points) ***********DONE***********-->
+<!--***********DONE***********8) The team used Github for collaboration (10 points) ***********DONE***********-->
+<!--***********DONE***********9) The team used Trello or a similar tool for project management (10 points) ***********DONE***********-->
 <!--10) In a Word document include User Story, Database schema, and mock up (5 points) UPLOAD these documents here and ALSO link them from your C9 site  (5 points)-->
     <head>
         <title>Project 2</title>
-        <link rel="stylesheet" type="text/css" href="../css/styles.css/">
+        <link rel="stylesheet" type="text/css" href="../css/styles.css">
         
         <script>
-            function showDescription() {
-                document.getElementById("description").innerHTML = "<b>Description: GOTTA FIGURE THIS OUT</b>";
+            function showDescription(text) {
+                document.getElementById("description").style.position = "fixed";
+                document.getElementById("description").style.right = 0;
+                document.getElementById("description").style.bottom = 0;
+                document.getElementById("description").style.width = "200px";
+                document.getElementById("description").style.height = "100px";
+                document.getElementById("description").style.backgroundColor = "grey";
+                document.getElementById("description").style.color = "white";
+                document.getElementById("description").innerHTML = text;
             }
         </script>
         
@@ -44,7 +51,7 @@
                 <br />
                 <input type="submit" value="Filter" name="submit" />
             </form>
-            <div id="description" style="float: right;">TEST</div>
+            <div id="description"></div>
             <?php
                 //CONNECT TO DB
                 $host = '127.0.0.1';
@@ -59,9 +66,11 @@
                 //GENDER
                 if($_POST['gender'] == "male"){
                     $gender = " WHERE gender = 'M'";
-                } elseif($_POST['gender'] == "female"){
+                } 
+                else if($_POST['gender'] == "female"){
                     $gender = " WHERE gender = 'F'";
-                } else{
+                } 
+                else{
                     $gender = " WHERE gender = 'F' OR gender = 'M'";
                 }
                 
@@ -69,12 +78,14 @@
 
                 if($_POST['sorting'] == "byAgeDesc"){
                     $orderBy = " ORDER BY x.age DESC";
-                } elseif($_POST['sorting'] == "byIDDesc"){
+                } 
+                else if($_POST['sorting'] == "byIDDesc"){
                     $orderBy = " ORDER BY x.animal_ID DESC";
                 }
-                elseif($_POST['sorting'] == "byAgeAsc"){
+                else if($_POST['sorting'] == "byAgeAsc"){
                     $orderBy = " ORDER BY x.age ASC";
-                }else{
+                }
+                else{
                     $orderBy = " ORDER BY x.animal_ID ASC";
                 }
                 
@@ -106,12 +117,12 @@
                 $statement -> execute();
                 
                 //SET UP HTML TABLE, FETCH AND DISPLAY DATA
-                echo '<h1>Table: query implementing form data</h1>'.$sqlquery.'<table>';
-                echo '<tr><td style="font-weight: bold">ID</td><td style="font-weight: bold">Animal Name</td><td style="font-weight: bold">Gender</td><td style="font-weight: bold">Color</td><td style="font-weight: bold">Size</td><td style="font-weight: bold">Age</td><td style="font-weight: bold">Adoption Fee</td></tr>';
-                while($row = $statement -> fetch()){
-                    echo '<tr onclick="showDescription()"><td>'.$row["animal_ID"].'</td><td>'.$row["name"].'</td><td>'.$row["gender"].'</td><td>'.$row["color"].'</td><td>'.$row["size"].'</td><td>'.$row["age"].'</td><td>$'.$row["adoption_fee"].'</td></tr>';
+                echo "<h1>Table: query implementing form data</h1>".$sqlquery."<table>";
+                echo "<tr><td style=\"font-weight: bold\">ID</td><td style=\"font-weight: bold\">Animal Name</td><td style=\"font-weight: bold\">Gender</td><td style=\"font-weight: bold\">Color</td><td style=\"font-weight: bold\">Size</td><td style=\"font-weight: bold\">Age</td><td style=\"font-weight: bold\">Adoption Fee</td></tr>";
+                while($row = $statement->fetch()){
+                    echo "<tr onclick=\"showDescription(\"".$row['description'] . "\")\"><td>".$row["animal_ID"]."</td><td>".$row["name"]."</td><td>".$row["gender"]."</td><td>".$row["color"]."</td><td>".$row["size"]."</td><td>".$row["age"]."</td><td>$".$row["adoption_fee"]."</td></tr>";
                 }
-                echo '</table>';
+                echo "</table>";
             ?>
             
         </div>

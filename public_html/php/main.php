@@ -3,6 +3,8 @@
 session_start();
 ?>
 <html>
+<!--ADD LINKS ON OUR PAGE TO OUR TRELLO AND DOCUMENT-->
+    
 <!--***********DONE***********1) Database has at least 3 tables with 40 records (10 points) -->
 <!--***********DONE***********2) Users can filter data using at least three fields (15 points) ***********DONE*********** -->
 <!--***********DONE***********3) Users can sort results (asc,desc) using at least one field (10 points) ***********DONE***********-->

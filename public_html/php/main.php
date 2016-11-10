@@ -38,7 +38,7 @@ session_start();
         <?php $cheese = 0; ?>
         <?php 
         if(!empty($_POST)){
-            echo "Bitch you guessin";
+            echo "<div class=\"errormsg\">There's nothing in your cart</div>";
             $_SESSION = $_POST;
             ?>
             <script>
@@ -46,7 +46,7 @@ session_start();
             </script>
             <?php
         }else{
-            echo "Bitch you not guessin";
+            echo "<div class=\"errormsg\">There's something in your cart</div>";
         }
         ?>
         <div class="wrapper">

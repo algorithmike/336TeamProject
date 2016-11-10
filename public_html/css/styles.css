@@ -36,7 +36,7 @@ tr:nth-child(even){
 }
 .wrapper{
     font-family: arial, sans-serif;
-    
+}
 #shoppingCart {
     position: fixed;
     right: 0;
@@ -47,4 +47,14 @@ tr:nth-child(even){
     background-color: grey;
     color: white;
 
+}
+.errormsg{
+    font-family:arial, sans-serif;
+    width: 50%;
+    margin: auto;
+    background-color: red;
+}
+.carttitle{
+    font-family:arial, sans-serif;
+    
 }

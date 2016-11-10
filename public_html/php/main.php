@@ -37,7 +37,7 @@ session_start();
     <body>
         <?php $cheese = 0; ?>
         <?php 
-        if(!empty($_POST)){
+        if(isset($_POST['animal_names'])){
             echo "Bitch you guessin";
             $_SESSION = $_POST;
             ?>

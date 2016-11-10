@@ -50,7 +50,7 @@ session_start();
         ?>
         <div class="mainPageDiv">
         <div class="pageTitle">
-            <img src="images/animal_shelter.jpg" alt="Animal Shelter Logo">
+            <img src="../images/animal_shelter.jpg" alt="Animal Shelter Logo" width="100px">
             Humane Society for the Adoption of Odd Animals
         </div>
         <div class="wrapper">
@@ -66,10 +66,7 @@ session_start();
                 <br />
                 <b>Max Adoption Fee:</b> <select name="maxFee">
                     <option value='unlimited'>No Limit</option>
-                    <option value='100'>100</option>
-                    <option value='75'>75</option>
-                    <option value='50'>50</option>
-					<option value='25'>25</option>
+                    <option value='100'>1000</option>
                 </select><br />
                 <b>Gender: </b><input type="radio" name="gender" value="either" checked>Either <input type="radio" name="gender" value="female">Female <input type="radio" name="gender" value="male">Male
                 <br />

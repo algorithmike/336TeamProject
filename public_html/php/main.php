@@ -30,20 +30,25 @@ session_start();
                 document.getElementById("description").style.color = "white";
                 document.getElementById("description").innerHTML = text;
             }
-            function showShoppingCart(){
-                document.getElementById("shoppingCart").style.position = "fixed";
-                document.getElementById("shoppingCart").style.right = 0;
-                document.getElementById("shoppingCart").style.top = 0;
-                document.getElementById("shoppingCart").style.width = "200px";
-                document.getElementById("shoppingCart").style.height = "100px";
-                document.getElementById("shoppingCart").style.backgroundColor = "grey";
-                document.getElementById("shoppingCart").style.color = "white";
-                document.getElementById("shoppingCart").innerHTML = "";
-            }
+            
         </script>
         
     </head>
     <body>
+        <?php $cheese = 0; ?>
+        <?php 
+        if(!empty($_POST)){
+            echo "Bitch you guessin";
+            $_SESSION = $_POST;
+            ?>
+            <script>
+                window.location = 'displayShoppingCart.php';
+            </script>
+            <?php
+        }else{
+            echo "Bitch you not guessin";
+        }
+        ?>
         <div class="wrapper">
             <!--FORM-->
             <form action="" method="post">
@@ -137,27 +142,25 @@ session_start();
                 echo"<table>";
                 echo "<tr><td style=\"font-weight: bold\"> </td><td style=\"font-weight: bold\">ID</td><td style=\"font-weight: bold\">Animal Name</td><td style=\"font-weight: bold\">Gender</td><td style=\"font-weight: bold\">Color</td><td style=\"font-weight: bold\">Size</td><td style=\"font-weight: bold\">Age</td><td style=\"font-weight: bold\">Adoption Fee</td></tr>";
                 ?>
-                <form>
+                <form action ="main.php" method="post">
                     
                 <?php
                 $i = 0;
                 while($row = $statement->fetch()){
-                    echo "<tr onclick=\"showDescription('".$row['description'] . "')\"><td><div onclick=\"addToCart(<?php $row ?>)\"><input type=\"checkbox\" name=\"animal_names\" value=\"" . $row['name'] ."\"></div></td><td>".$row["animal_ID"]."</td><td>".$row["name"]."</td><td>".$row["gender"]."</td><td>".$row["color"]."</td><td>".$row["size"]."</td><td>".$row["age"]."</td><td>$".$row["adoption_fee"]."</td></tr>";
+                    echo "<tr onclick=\"showDescription('".$row['description'] . "')\"><td><div onclick=\"addToCart(" .  $row['name'] . ")\"><input type=\"checkbox\" onclick=\"addToShoppingCart()\" name=\"animal_names[]\" value=\"" . $row['name'] ."\"></div></td><td>".$row["animal_ID"]."</td><td>".$row["name"]."</td><td>".$row["gender"]."</td><td>".$row["color"]."</td><td>".$row["size"]."</td><td>".$row["age"]."</td><td>$".$row["adoption_fee"]."</td></tr>";
                 }
                 echo "</table>
                 </div>";
 
                 ?>
+                
+                <input type="Submit">
                 </form>
                 <?php
                 //$_SESSION['values'] = $arr;
                 
-                function sessionn(){
-                    echo "<input type=\"submit\">";
-                }
             ?>
             
-            <a href="displayShoppingCart.php">Shopping Cart</a>
             
         </div>
     </body>

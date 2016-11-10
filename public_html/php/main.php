@@ -37,7 +37,8 @@ session_start();
     <body>
         <?php $cheese = 0; ?>
         <?php 
-        if(!empty($_POST)){
+
+        if(isset($_POST['animal_names'])){
             echo "<div class=\"errormsg\">There's nothing in your cart</div>";
             $_SESSION = $_POST;
             ?>

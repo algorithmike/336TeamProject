@@ -46,10 +46,13 @@ session_start();
                 window.location = 'displayShoppingCart.php';
             </script>
             <?php
-        }else{
-            echo "<div class=\"errormsg\">There's something in your cart</div>";
         }
         ?>
+        <div class="mainPageDiv">
+        <div class="pageTitle">
+            <img src="images/animal_shelter.jpg" alt="Animal Shelter Logo">
+            Humane Society for the Adoption of Odd Animals
+        </div>
         <div class="wrapper">
             <!--FORM-->
             <form action="" method="post">
@@ -70,7 +73,7 @@ session_start();
                 </select><br />
                 <b>Gender: </b><input type="radio" name="gender" value="either" checked>Either <input type="radio" name="gender" value="female">Female <input type="radio" name="gender" value="male">Male
                 <br />
-                <input type="submit" value="Filter" name="submit" />
+                <input class="subButton" type="submit" value="Filter" name="submit" />
             </form>
             <div id="description"></div>
             <div id="shoppingCart"></div>
@@ -141,10 +144,10 @@ session_start();
                 //SET UP HTML TABLE, FETCH AND DISPLAY DATA
                // echo "<h1>Table: query implementing form data</h1>".$sqlquery."; 
                 echo"<table>";
-                echo "<tr><td style=\"font-weight: bold\"> </td><td style=\"font-weight: bold\">ID</td><td style=\"font-weight: bold\">Animal Name</td><td style=\"font-weight: bold\">Gender</td><td style=\"font-weight: bold\">Color</td><td style=\"font-weight: bold\">Size</td><td style=\"font-weight: bold\">Age</td><td style=\"font-weight: bold\">Adoption Fee</td></tr>";
+                echo "<tr><td style=\"font-weight: bold\" >Add to Cart</td><td style=\"font-weight: bold\">ID</td><td style=\"font-weight: bold\">Animal Name</td><td style=\"font-weight: bold\">Gender</td><td style=\"font-weight: bold\">Color</td><td style=\"font-weight: bold\">Size</td><td style=\"font-weight: bold\">Age</td><td style=\"font-weight: bold\">Adoption Fee</td></tr>";
                 ?>
                 <form action ="main.php" method="post">
-                    
+                    <input class="subButton" type="Submit" value="View Shopping Cart">
                 <?php
                 $i = 0;
                 while($row = $statement->fetch()){
@@ -155,13 +158,13 @@ session_start();
 
                 ?>
                 
-                <input type="Submit">
+                
                 </form>
                 <?php
                 //$_SESSION['values'] = $arr;
                 
             ?>
-            
+            </div>
             
         </div>
     </body>

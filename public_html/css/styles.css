@@ -1,7 +1,11 @@
 .body {
-    background-color: grey;
-    width: 100%;
+    width: 50%;
     height: 100%;
+    
+}
+html{
+    background-color: gray;
+    margin: 10px;
 }
 
 #description {
@@ -20,15 +24,20 @@ table{
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    background-color: white;
 } 
 th, td {
-    border: 1px solid #dddddd;
+    border: 3px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
 tr:nth-child(even){
     background-color: #9DC5DB;
 }
+tr:nth-child(1){
+    background-color: #dddddd;
+}
+
 
 .results{
     width: 50%;
@@ -54,7 +63,71 @@ tr:nth-child(even){
     margin: auto;
     background-color: red;
 }
-.carttitle{
+.cart{
     font-family:arial, sans-serif;
+    background-color: white;
+    border-radius: 10px;
+    width: 50%;
+    height: 100%;
+    margin: auto;
+}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.returnbutton{
+    width: 10%;
+    font-weight:bolder;
+    margin:auto;
+}
+a{
+    text-decoration: none;
+    background-color: blue;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+}
+a:hover{
+    background-color: gray;
+}
+.title{
+    width: 30%;
+    padding-top: 10px;
+    font-weight:bolder;
+    margin:auto;
+}
+.contents{
+    width: 30%;
+    padding-top: 10px;
+    margin:auto;
+    background-color: #9DC5DB;
+}
+.subButton{
+    padding: 10px;
+    padding-right: 20px;
+    padding-left:20px;
+    font-family: arial, sans-serif;
+    font-weight: bolder;
+    background-color: #9DC5DB;
+    border-radius: 8px;
+}
+
+.pageTitle{
+    font-family:arial, sans-serif;
+    font-weight:bolder;
+    font-size: 25px;
+}
+.mainPageDiv{
+    background-color: white;
+    width: 70%;
+    margin:auto;
+    border-radius: 8px;
+    padding:10px;
     
 }
